@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iEra Upload", "iEra Upload\iEra Upload.csproj", "{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Debug|x64.ActiveCfg = Debug|x64
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Debug|x64.Build.0 = Debug|x64
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Release|x64.ActiveCfg = Release|x64
+		{B6E2E1E9-0AA0-4A4F-946B-9060154983EC}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B434345E-DFEB-4A82-8BDD-6656CD009FC1}
+	EndGlobalSection
+EndGlobal
