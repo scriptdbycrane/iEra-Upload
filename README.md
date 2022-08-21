@@ -29,6 +29,9 @@ Once you have done so, build the solution or project and run it.
 <br>
 **A:** Contact me on Discord at Crane#3815.
 
+### Screenshots
+![Screenshot](/Capture.PNG)
+
 ### Acknowledgements
 Listed below are entites that have in some way shape or form assisted with the development of this software.
 - Toonslab
