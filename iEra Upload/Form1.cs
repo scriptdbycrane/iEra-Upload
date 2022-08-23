@@ -45,7 +45,8 @@ namespace iEra_Upload
                 // Attempting to run any custom JavaScript before the web browser is initialized will result in a crash.
                 if (this.WebBrowser.IsBrowserInitialized)
                 {
-                    // Fill the Graal ID field with the cached Graal ID if the latter exists.
+                    // Fill the Graal ID field with the cached Graal ID.
+                    // The Graal ID field will be set to nothing, if the cached Graal ID is invalid.
                     this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
                     this.JSTimer.Stop();
                     this.JSTimer.Dispose();
@@ -63,22 +64,24 @@ namespace iEra_Upload
             if (File.Exists(this.CacheFile))
             {
                 String[] contents = File.ReadAllLines(this.CacheFile);
-                this.GraalID.ID = contents.Length > 0 ? contents.First() : "";
+                GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
+                this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : ""; 
             }
         }
 
         private async void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // If the cache file is not found, create the cache directory and cache file.
-            if (!File.Exists(this.CacheFile))
+            // Read the Graal ID from the Graal ID field.
+            JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
+            this.GraalID.ID = (String)response.Result;
+
+            // The cache path needs to exist prior to creating the cache file.
+            if (!Directory.Exists(this.CachePath))
             {
                 Directory.CreateDirectory(this.CachePath);
             }
 
-            JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
-            this.GraalID.ID = (String)response.Result;
-
-            // Write the most recently typed Graal ID to the cache file.
+            // Write the most recently read Graal ID to the cache file.
             // This will only write "valid" Graal IDs -- Graal IDs that are formatted correctly (e.g., GraalXXXXXXX).
             if (this.GraalID.IsValid())
             {
