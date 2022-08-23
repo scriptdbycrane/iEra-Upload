@@ -9,7 +9,7 @@ namespace iEra_Upload
         private System.Timers.Timer JSTimer = new System.Timers.Timer();
         private String CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\";
         private String CacheFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\.graal_id";
-        private String GraalID = "";
+        private GraalID GraalID = new GraalID("");
 
         public Form1()
         {
@@ -46,7 +46,7 @@ namespace iEra_Upload
                 if (this.WebBrowser.IsBrowserInitialized)
                 {
                     // Fill the Graal ID field with the cached Graal ID if the latter exists.
-                    this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID}\";");
+                    this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
                     this.JSTimer.Stop();
                     this.JSTimer.Dispose();
                 }
@@ -63,7 +63,7 @@ namespace iEra_Upload
             if (File.Exists(this.CacheFile))
             {
                 String[] contents = File.ReadAllLines(this.CacheFile);
-                this.GraalID = contents.Length > 0 ? contents.First() : "";
+                this.GraalID.ID = contents.Length > 0 ? contents.First() : "";
             }
         }
 
@@ -76,13 +76,13 @@ namespace iEra_Upload
             }
 
             JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
-            this.GraalID = (String)response.Result;
+            this.GraalID.ID = (String)response.Result;
 
             // Write the most recently typed Graal ID to the cache file.
             // This will only write "valid" Graal IDs -- Graal IDs that are formatted correctly (e.g., GraalXXXXXXX).
-            if (this.GraalID.Length == 12 && this.GraalID.ToUpper().StartsWith("GRAAL"))
+            if (this.GraalID.IsValid())
             {
-                File.WriteAllText(this.CacheFile, this.GraalID);
+                File.WriteAllText(this.CacheFile, this.GraalID.ID);
             }
         }
     }
