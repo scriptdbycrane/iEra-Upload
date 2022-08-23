@@ -79,7 +79,7 @@ namespace iEra_Upload
             this.GraalID = (String)response.Result;
 
             // Write the most recently typed Graal ID to the cache file.
-            // This will only write "valid" Graal IDs -- Graal IDs that are formatted correctly (e.g. Graal1234567).
+            // This will only write "valid" Graal IDs -- Graal IDs that are formatted correctly (e.g., GraalXXXXXXX).
             if (this.GraalID.Length == 12 && this.GraalID.ToUpper().StartsWith("GRAAL"))
             {
                 File.WriteAllText(this.CacheFile, this.GraalID);
