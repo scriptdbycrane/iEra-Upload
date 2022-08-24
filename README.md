@@ -9,10 +9,6 @@ This software is an unofficial, individually-developed standalone for GraalOnlin
 - **CefSharp.WinForms.NETCore:** 104.4.240
 
 ### Frequently Asked Questions
-**Q:** I get a .NET Desktop Runtime error, when launching the application. How do I resolve this?
-<br>
-**A:** Install the **.NET 6.0** Runtime or SDK. You can do so by vising Microsoft's official page for it [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). 
-
 **Q:** Why can I not adjust the size of the window (including minimizing & maximizing)?
 <br>
 **A:** It would malform the display of the uploader's contents, and I am too lazy to currently fix it. Besides, everything the uploader requires of you prior to submitting your graphic is present from the start.
