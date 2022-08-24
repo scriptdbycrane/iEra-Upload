@@ -59,7 +59,7 @@ namespace iEra_Upload
             {
                 String[] contents = File.ReadAllLines(this.CacheFile);
                 GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
-                this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : ""; 
+                this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
             }
         }
 
