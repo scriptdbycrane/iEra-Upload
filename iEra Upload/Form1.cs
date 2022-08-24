@@ -19,11 +19,9 @@ namespace iEra_Upload
 
         private void InitializeChromium()
         {
-            // Initialize the settings.
             CefSettings settings = new CefSettings();
             Cef.Initialize(settings);
 
-            // Confiugure the web browser.
             const String URL = "https://eraupload.graalonline.com";
             this.WebBrowser.Load(URL);
             this.Controls.Add(this.WebBrowser);
@@ -45,8 +43,6 @@ namespace iEra_Upload
                 // Attempting to run any custom JavaScript before the web browser is initialized will result in a crash.
                 if (this.WebBrowser.IsBrowserInitialized)
                 {
-                    // Fill the Graal ID field with the cached Graal ID.
-                    // The Graal ID field will be set to nothing, if the cached Graal ID is invalid.
                     this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
                     this.JSTimer.Stop();
                     this.JSTimer.Dispose();
@@ -56,11 +52,9 @@ namespace iEra_Upload
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Set the permanent dimensions of the application.
             this.MinimumSize = new Size(this.Width, this.Height);
             this.MaximumSize = this.MinimumSize;
 
-            // Read the cached Graal ID, if it exists.
             if (File.Exists(this.CacheFile))
             {
                 String[] contents = File.ReadAllLines(this.CacheFile);
@@ -71,18 +65,14 @@ namespace iEra_Upload
 
         private async void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Read the Graal ID from the Graal ID field.
             JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
             this.GraalID.ID = (String)response.Result;
 
-            // The cache path needs to exist prior to creating the cache file.
             if (!Directory.Exists(this.CachePath))
             {
                 Directory.CreateDirectory(this.CachePath);
             }
 
-            // Write the most recently read Graal ID to the cache file.
-            // This will only write "valid" Graal IDs -- Graal IDs that are formatted correctly (e.g., GraalXXXXXXX).
             if (this.GraalID.IsValid())
             {
                 File.WriteAllText(this.CacheFile, this.GraalID.ID);
