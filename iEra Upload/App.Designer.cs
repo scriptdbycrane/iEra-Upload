@@ -29,13 +29,27 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(App));
+            this.RefreshButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // RefreshButton
+            // 
+            this.RefreshButton.Location = new System.Drawing.Point(0, 0);
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Size = new System.Drawing.Size(75, 25);
+            this.RefreshButton.TabIndex = 0;
+            this.RefreshButton.TabStop = false;
+            this.RefreshButton.Text = "Refresh";
+            this.RefreshButton.UseVisualStyleBackColor = true;
+            this.RefreshButton.Visible = false;
+            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 597);
+            this.Controls.Add(this.RefreshButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "App";
@@ -48,5 +62,7 @@
         }
 
         #endregion
+
+        private Button RefreshButton;
     }
 }

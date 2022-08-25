@@ -5,6 +5,7 @@ namespace iEra_Upload
 {
     public partial class App : Form
     {
+        private String URL = "https://eraupload.graalonline.com";
         private ChromiumWebBrowser WebBrowser = new ChromiumWebBrowser();
         private System.Timers.Timer JSTimer = new System.Timers.Timer();
         private String CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\";
@@ -22,8 +23,7 @@ namespace iEra_Upload
             CefSettings settings = new CefSettings();
             Cef.Initialize(settings);
 
-            const String URL = "https://eraupload.graalonline.com";
-            this.WebBrowser.Load(URL);
+            this.WebBrowser.Load(this.URL);
             this.Controls.Add(this.WebBrowser);
 
             this.WebBrowser.Dock = DockStyle.Fill;
@@ -32,20 +32,23 @@ namespace iEra_Upload
             // This timer determines when any custom JavaScript should begin executing in the web browser.
             this.JSTimer = new System.Timers.Timer();
             this.JSTimer.Interval = 500;
-            this.JSTimer.Elapsed += this.WebBrowserTimer_Elapsed;
+            this.JSTimer.Elapsed += this.JSTimer_Elapsed;
             this.JSTimer.Start();
         }
 
-        private void WebBrowserTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        private void JSTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
             Invoke(new Action(() =>
             {
-                // Attempting to run any custom JavaScript before the web browser is initialized will result in a crash.
                 if (this.WebBrowser.IsBrowserInitialized)
                 {
                     this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
                     this.JSTimer.Stop();
-                    this.JSTimer.Dispose();
+
+                    if (!this.RefreshButton.Visible)
+                    {
+                        this.RefreshButton.Show();
+                    }
                 }
             }));
         }
@@ -77,6 +80,12 @@ namespace iEra_Upload
             {
                 File.WriteAllText(this.CacheFile, this.GraalID.ID);
             }
+        }
+
+        private async void RefreshButton_Click(object sender, EventArgs e)
+        {
+            await this.WebBrowser.LoadUrlAsync(this.URL);
+            this.JSTimer.Start();
         }
     }
 }
