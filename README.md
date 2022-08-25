@@ -9,6 +9,10 @@ This software is an unofficial, individually-developed standalone for GraalOnlin
 - **CefSharp.WinForms.NETCore:** 104.4.240
 
 ### Frequently Asked Questions
+**Q:** Why did you create this?
+<br>
+**A:** Primarily, because I wanted something more convenient to submit custom uploads with. I always disliked needing to open a separate browser/bookmark for it. Second, I wanted to have fun creating something for a game I genuinely enjoy playing.
+
 **Q:** Why can I not adjust the size of the window (including minimizing & maximizing)?
 <br>
 **A:** It would malform the display of the uploader's contents, and I am too lazy to currently fix it. Besides, everything the uploader requires of you prior to submitting your graphic is present from the start.
