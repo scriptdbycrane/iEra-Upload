@@ -36,7 +36,6 @@ Once you have done so, build the solution or project and run it.
 ### Screenshots
 ![Screenshot](/iEra%20Upload/Resources/Capture.PNG)
 
-
 ### Acknowledgements
 Listed below are entites that have in some way shape or form assisted with the development of this software.
 - Toonslab
