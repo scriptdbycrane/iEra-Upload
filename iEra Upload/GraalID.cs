@@ -6,16 +6,16 @@
 
         public GraalID(string graalID)
         {
-            ID = graalID;
+            this.ID = graalID;
         }
 
         public bool IsValid()
         {
-            if (ID.Length == 12 && ID.ToUpper().StartsWith("GRAAL"))
+            if (this.ID.Length == 12 && this.ID.ToUpper().StartsWith("GRAAL"))
             {
                 try
                 {
-                    int digits = int.Parse(ID[5..]);
+                    int digits = int.Parse(this.ID[5..]);
                     return true;
                 }
                 catch (FormatException)
