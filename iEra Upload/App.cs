@@ -8,8 +8,8 @@ namespace iEra_Upload
         private string URL = "https://eraupload.graalonline.com";
         private ChromiumWebBrowser WebBrowser = new ChromiumWebBrowser();
         private System.Timers.Timer JSTimer = new System.Timers.Timer();
-        private string CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\";
-        private string CacheFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\.graal_id";
+        private Resource CachePath = new Resource(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\");
+        private Resource CacheFile = new Resource(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\.graal_id");
         private GraalID GraalID = new GraalID("");
 
         public App()
@@ -58,9 +58,9 @@ namespace iEra_Upload
             MinimumSize = new Size(Width, Height);
             MaximumSize = MinimumSize;
 
-            if (File.Exists(CacheFile))
+            if (CacheFile.Exists())
             {
-                string[] contents = File.ReadAllLines(CacheFile);
+                string[] contents = File.ReadAllLines(CacheFile.Path);
                 GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
                 GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
             }
@@ -71,14 +71,14 @@ namespace iEra_Upload
             JavascriptResponse response = await WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
             GraalID.ID = (string)response.Result;
 
-            if (!Directory.Exists(CachePath))
+            if (CachePath.Exists())
             {
-                Directory.CreateDirectory(CachePath);
+                Directory.CreateDirectory(CachePath.Path);
             }
 
             if (GraalID.IsValid())
             {
-                File.WriteAllText(CacheFile, GraalID.ID);
+                File.WriteAllText(CacheFile.Path, GraalID.ID);
             }
         }
 
