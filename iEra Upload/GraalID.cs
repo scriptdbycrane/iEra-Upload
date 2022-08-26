@@ -2,20 +2,20 @@
 {
     internal class GraalID
     {
-        public String ID = "";
+        public string ID { get; set; }
 
-        public GraalID(String graalID)
+        public GraalID(string graalID)
         {
-            this.ID = graalID;
+            ID = graalID;
         }
 
-        public Boolean IsValid()
+        public bool IsValid()
         {
-            if (this.ID.Length == 12 && this.ID.ToUpper().StartsWith("GRAAL"))
+            if (ID.Length == 12 && ID.ToUpper().StartsWith("GRAAL"))
             {
                 try
                 {
-                    Int32 digits = Int32.Parse(this.ID[5..]);
+                    int digits = int.Parse(ID[5..]);
                     return true;
                 }
                 catch (FormatException)
