@@ -40,3 +40,5 @@ Once you have done so, build the solution or project and run it.
 Listed below are entites that have in some way shape or form assisted with the development of this software.
 - Toonslab
 - GraalOnline Era Staff & Community
+- Spolsh
+- Conner
