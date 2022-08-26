@@ -6,11 +6,11 @@ namespace iEra_Upload
     public partial class App : Form
     {
         private string URL = "https://eraupload.graalonline.com";
-        private ChromiumWebBrowser WebBrowser = new ChromiumWebBrowser();
-        private System.Timers.Timer JSTimer = new System.Timers.Timer();
-        private Resource CachePath = new Resource(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\");
-        private Resource CacheFile = new Resource(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\.graal_id");
-        private GraalID GraalID = new GraalID("");
+        private ChromiumWebBrowser WebBrowser = new();
+        private System.Timers.Timer JSTimer = new();
+        private Resource CacheDirectory = new Resource(Resource.ResourceType.Directory, Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\");
+        private Resource CacheFile = new Resource(Resource.ResourceType.File, Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\.graal_id");
+        private GraalID GraalID = new GraalID(string.Empty);
 
         public App()
         {
@@ -18,9 +18,9 @@ namespace iEra_Upload
             this.InitializeChromium();
         }
 
-        private void InitializeChromium()
+        public void InitializeChromium()
         {
-            CefSettings settings = new CefSettings();
+            CefSettings settings = new();
             Cef.Initialize(settings);
 
             this.WebBrowser.Load(URL);
@@ -36,7 +36,7 @@ namespace iEra_Upload
             this.JSTimer.Start();
         }
 
-        private void JSTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        public void JSTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
             Invoke(new Action(() =>
             {
@@ -53,7 +53,7 @@ namespace iEra_Upload
             }));
         }
 
-        private void App_Load(object sender, EventArgs e)
+        public void App_Load(object sender, EventArgs e)
         {
             this.MinimumSize = new Size(this.Width, this.Height);
             this.MaximumSize = this.MinimumSize;
@@ -66,14 +66,14 @@ namespace iEra_Upload
             }
         }
 
-        private async void App_FormClosing(object sender, FormClosingEventArgs e)
+        public async void App_FormClosing(object sender, FormClosingEventArgs e)
         {
             JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
             this.GraalID.ID = (string)response.Result;
 
-            if (!this.CachePath.Exists())
+            if (!this.CacheDirectory.Exists())
             {
-                Directory.CreateDirectory(this.CachePath.Path);
+                Directory.CreateDirectory(this.CacheDirectory.Path);
             }
 
             if (this.GraalID.IsValid())
@@ -82,7 +82,7 @@ namespace iEra_Upload
             }
         }
 
-        private async void RefreshButton_Click(object sender, EventArgs e)
+        public async void RefreshButton_Click(object sender, EventArgs e)
         {
             await this.WebBrowser.LoadUrlAsync(this.URL);
             this.JSTimer.Start();
