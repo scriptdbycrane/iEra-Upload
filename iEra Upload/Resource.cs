@@ -1,19 +1,32 @@
-﻿using System.Security.Policy;
-
-namespace iEra_Upload
+﻿namespace iEra_Upload
 {
     internal class Resource
     {
+        public enum ResourceType
+        {
+            Directory,
+            File
+        };
+        public ResourceType Type { get; set; }
         public string Path { get; set; }
 
-        public Resource(string path)
+        public Resource(ResourceType type, string path)
         {
-            Path = path;
+            this.Type = type;
+            this.Path = path;
         }
 
         public bool Exists()
         {
-            return Directory.Exists(Path) || File.Exists(Path);
+            switch (this.Type)
+            {
+                case ResourceType.Directory:
+                    return Directory.Exists(this.Path);
+                case ResourceType.File:
+                    return File.Exists(this.Path);
+                default:
+                    return false;
+            }
         }
     }
 }
