@@ -14,8 +14,8 @@ namespace iEra_Upload
 
         public App()
         {
-            InitializeComponent();
-            InitializeChromium();
+            this.InitializeComponent();
+            this.InitializeChromium();
         }
 
         private void InitializeChromium()
@@ -23,31 +23,31 @@ namespace iEra_Upload
             CefSettings settings = new CefSettings();
             Cef.Initialize(settings);
 
-            WebBrowser.Load(URL);
-            Controls.Add(WebBrowser);
+            this.WebBrowser.Load(URL);
+            this.Controls.Add(this.WebBrowser);
 
-            WebBrowser.Dock = DockStyle.Fill;
-            WebBrowser.Show();
+            this.WebBrowser.Dock = DockStyle.Fill;
+            this.WebBrowser.Show();
 
             // This timer determines when any custom JavaScript should begin executing in the web browser.
-            JSTimer = new System.Timers.Timer();
-            JSTimer.Interval = 500;
-            JSTimer.Elapsed += JSTimer_Elapsed;
-            JSTimer.Start();
+            this.JSTimer = new System.Timers.Timer();
+            this.JSTimer.Interval = 500;
+            this.JSTimer.Elapsed += JSTimer_Elapsed;
+            this.JSTimer.Start();
         }
 
         private void JSTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
             Invoke(new Action(() =>
             {
-                if (WebBrowser.IsBrowserInitialized)
+                if (this.WebBrowser.IsBrowserInitialized)
                 {
-                    WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{GraalID.ID}\";");
-                    JSTimer.Stop();
+                    this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
+                    this.JSTimer.Stop();
 
-                    if (!RefreshButton.Visible)
+                    if (!this.RefreshButton.Visible)
                     {
-                        RefreshButton.Show();
+                        this.RefreshButton.Show();
                     }
                 }
             }));
@@ -55,37 +55,37 @@ namespace iEra_Upload
 
         private void App_Load(object sender, EventArgs e)
         {
-            MinimumSize = new Size(Width, Height);
-            MaximumSize = MinimumSize;
+            this.MinimumSize = new Size(this.Width, this.Height);
+            this.MaximumSize = this.MinimumSize;
 
-            if (CacheFile.Exists())
+            if (this.CacheFile.Exists())
             {
                 string[] contents = File.ReadAllLines(CacheFile.Path);
                 GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
-                GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
+                this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
             }
         }
 
         private async void App_FormClosing(object sender, FormClosingEventArgs e)
         {
-            JavascriptResponse response = await WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
-            GraalID.ID = (string)response.Result;
+            JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
+            this.GraalID.ID = (string)response.Result;
 
-            if (CachePath.Exists())
+            if (this.CachePath.Exists())
             {
-                Directory.CreateDirectory(CachePath.Path);
+                Directory.CreateDirectory(this.CachePath.Path);
             }
 
-            if (GraalID.IsValid())
+            if (this.GraalID.IsValid())
             {
-                File.WriteAllText(CacheFile.Path, GraalID.ID);
+                File.WriteAllText(this.CacheFile.Path, this.GraalID.ID);
             }
         }
 
         private async void RefreshButton_Click(object sender, EventArgs e)
         {
-            await WebBrowser.LoadUrlAsync(URL);
-            JSTimer.Start();
+            await this.WebBrowser.LoadUrlAsync(this.URL);
+            this.JSTimer.Start();
         }
     }
 }
