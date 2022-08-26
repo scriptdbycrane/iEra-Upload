@@ -34,7 +34,7 @@
             // 
             // RefreshButton
             // 
-            this.RefreshButton.Location = new System.Drawing.Point(0, 0);
+            this.RefreshButton.Location = new System.Drawing.Point(12, 12);
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Size = new System.Drawing.Size(75, 25);
             this.RefreshButton.TabIndex = 0;
