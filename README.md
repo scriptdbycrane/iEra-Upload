@@ -19,9 +19,9 @@ This software is an unofficial, individually-developed standalone for GraalOnlin
 
 **Q:** Will there be a standalone uploader for the other mobile Graal servers?
 <br>
-**A:** I currently have no plans to implement a standalone uploader for the other mobile Graal servers. If you would like one, feel free to download and extract this repository, then open the Visual Studio solution and assign the following constant's value to the correct customs uploading site for your server.
+**A:** I currently have no plans to implement a standalone uploader for the other mobile Graal servers. If you would like one, feel free to download and extract this repository, then open the Visual Studio solution and assign the following constant's value in [App.cs](./iEra%20Upload/App.cs) to the correct customs uploading site for your server.
 ```c# 
-const String URL = "https://eraupload.graalonline.com"
+private String URL = "https://eraupload.graalonline.com"
 ```
 Once you have done so, build the solution or project and run it.
 
