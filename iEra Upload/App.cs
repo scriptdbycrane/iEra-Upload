@@ -71,7 +71,7 @@ namespace iEra_Upload
             JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
             this.GraalID.ID = (string)response.Result;
 
-            if (this.CachePath.Exists())
+            if (!this.CachePath.Exists())
             {
                 Directory.CreateDirectory(this.CachePath.Path);
             }
