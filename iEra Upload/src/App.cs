@@ -35,23 +35,6 @@ namespace iEra_Upload
             this.JSTimer.Start();
         }
 
-        public void JSTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            Invoke(new Action(() =>
-            {
-                if (this.WebBrowser.IsBrowserInitialized)
-                {
-                    this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
-                    this.JSTimer.Stop();
-
-                    if (!this.RefreshButton.Visible)
-                    {
-                        this.RefreshButton.Show();
-                    }
-                }
-            }));
-        }
-
         public async void App_FormClosing(object sender, FormClosingEventArgs e)
         {
             JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
@@ -79,6 +62,23 @@ namespace iEra_Upload
                 GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
                 this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
             }
+        }
+
+        public void JSTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                if (this.WebBrowser.IsBrowserInitialized)
+                {
+                    this.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{this.GraalID.ID}\";");
+                    this.JSTimer.Stop();
+
+                    if (!this.RefreshButton.Visible)
+                    {
+                        this.RefreshButton.Show();
+                    }
+                }
+            }));
         }
 
         public async void RefreshButton_Click(object sender, EventArgs e)
