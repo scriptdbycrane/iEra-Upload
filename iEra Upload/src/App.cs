@@ -30,7 +30,6 @@ namespace iEra_Upload
             this.WebBrowser.Show();
 
             // This timer determines when any custom JavaScript should begin executing in the web browser.
-            this.JSTimer = new System.Timers.Timer();
             this.JSTimer.Interval = 500;
             this.JSTimer.Elapsed += JSTimer_Elapsed;
             this.JSTimer.Start();
@@ -53,19 +52,6 @@ namespace iEra_Upload
             }));
         }
 
-        public void App_Load(object sender, EventArgs e)
-        {
-            this.MinimumSize = new Size(this.Width, this.Height);
-            this.MaximumSize = this.MinimumSize;
-
-            if (this.CacheFile.Exists())
-            {
-                string[] contents = File.ReadAllLines(CacheFile.Path);
-                GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
-                this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
-            }
-        }
-
         public async void App_FormClosing(object sender, FormClosingEventArgs e)
         {
             JavascriptResponse response = await this.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
@@ -80,9 +66,19 @@ namespace iEra_Upload
             {
                 File.WriteAllText(this.CacheFile.Path, this.GraalID.ID);
             }
+        }
 
-            this.WebBrowser.Delete();
-            Cef.Shutdown();
+        public void App_Load(object sender, EventArgs e)
+        {
+            this.MinimumSize = new Size(this.Width, this.Height);
+            this.MaximumSize = this.MinimumSize;
+
+            if (this.CacheFile.Exists())
+            {
+                string[] contents = File.ReadAllLines(CacheFile.Path);
+                GraalID? graalID = contents.Length > 0 ? new GraalID(contents.First()) : null;
+                this.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : "") : "";
+            }
         }
 
         public async void RefreshButton_Click(object sender, EventArgs e)
