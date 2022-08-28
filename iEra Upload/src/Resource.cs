@@ -2,6 +2,7 @@
 {
     internal class Resource
     {
+        public static readonly string Root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\iEra Upload\";
         public enum ResourceType
         {
             Directory,
