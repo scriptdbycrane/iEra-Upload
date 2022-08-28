@@ -14,7 +14,7 @@ namespace iEra_Upload
         static public async void Click(object? sender, EventArgs e)
         {
             await App!.WebBrowser.LoadUrlAsync(App.Url);
-            App!.JavascriptPreexecutionTimer.Start();
+            App.JavascriptPreexecutionTimer.Start();
         }
 
         static public void Elapsed(object? sender, EventArgs e)
