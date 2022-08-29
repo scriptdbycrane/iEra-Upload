@@ -11,18 +11,16 @@ namespace iEra_Upload
             App = App ?? app;
         }
 
-        static public async void Click(object? sender, EventArgs e)
+        static public void Load(object? sender, EventArgs e)
         {
-            await App!.WebBrowser.LoadUrlAsync(App.Url);
-            App.JavascriptPreexecutionTimer.Start();
-        }
+            App!.MinimumSize = App.Size;
+            App.MaximumSize = App.Size;
 
-        static public void Elapsed(object? sender, EventArgs e)
-        {
-            if (App!.WebBrowser.IsBrowserInitialized)
+            if (App.CacheFile.Exists())
             {
-                App.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{App.GraalID.ID}\";");
-                App.JavascriptPreexecutionTimer.Stop();
+                string[] content = File.ReadAllLines(App.CacheFile.Path);
+                GraalID? graalID = content.Length > 0 ? new GraalID(content[0]) : null;
+                App.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : string.Empty) : string.Empty;
             }
         }
 
@@ -41,16 +39,24 @@ namespace iEra_Upload
             }
         }
 
-        static public void Load(object? sender, EventArgs e)
+        static public async void RefreshButton_Click(object? sender, EventArgs e)
         {
-            App!.MinimumSize = App.Size;
-            App.MaximumSize = App.Size;
+            await App!.WebBrowser.LoadUrlAsync(App.Url);
+            App.JavascriptPreexecutionTimer.Start();
+        }
 
-            if (App.CacheFile.Exists())
+        static public void PreviewButton_Click(object? sender, EventArgs e)
+        {
+            PreviewForm preview = new(App!);
+            preview.Show();
+        }
+
+        static public void Elapsed(object? sender, EventArgs e)
+        {
+            if (App!.WebBrowser.IsBrowserInitialized)
             {
-                string[] content = File.ReadAllLines(App.CacheFile.Path);
-                GraalID? graalID = content.Length > 0 ? new GraalID(content[0]) : null;
-                App.GraalID.ID = graalID != null ? (graalID.IsValid() ? graalID.ID : string.Empty) : string.Empty;
+                App.WebBrowser.EvaluateScriptAsync($"document.getElementById(\"email\").value = \"{App.GraalID.ID}\";");
+                App.JavascriptPreexecutionTimer.Stop();
             }
         }
     }

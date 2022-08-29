@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(App));
             this.WebBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.PreviewButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // WebBrowser
@@ -53,11 +54,22 @@
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Visible = false;
             // 
+            // PreviewButton
+            // 
+            this.PreviewButton.Location = new System.Drawing.Point(12, 66);
+            this.PreviewButton.Name = "PreviewButton";
+            this.PreviewButton.Size = new System.Drawing.Size(75, 23);
+            this.PreviewButton.TabIndex = 2;
+            this.PreviewButton.Text = "Preview";
+            this.PreviewButton.UseVisualStyleBackColor = true;
+            this.PreviewButton.Visible = false;
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 607);
+            this.Controls.Add(this.PreviewButton);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.WebBrowser);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -73,5 +85,6 @@
 
         public CefSharp.WinForms.ChromiumWebBrowser WebBrowser;
         public Button RefreshButton;
+        public Button PreviewButton;
     }
 }

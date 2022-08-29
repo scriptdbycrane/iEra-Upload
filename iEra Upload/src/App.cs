@@ -26,6 +26,7 @@ namespace iEra_Upload
 
             await this.WebBrowser.LoadUrlAsync(this.Url);
             this.RefreshButton.Show();
+            this.PreviewButton.Show();
         }
 
         private void InitializeNonFormControls()
@@ -38,10 +39,11 @@ namespace iEra_Upload
         {
             EventHandler.Initialize(this);
 
-            this.FormClosing += EventHandler.FormClosing;
-            this.JavascriptPreexecutionTimer.Elapsed += EventHandler.Elapsed;
             this.Load += EventHandler.Load;
-            this.RefreshButton.Click += EventHandler.Click;
+            this.FormClosing += EventHandler.FormClosing;
+            this.RefreshButton.Click += EventHandler.RefreshButton_Click;
+            this.PreviewButton.Click += EventHandler.PreviewButton_Click;
+            this.JavascriptPreexecutionTimer.Elapsed += EventHandler.Elapsed;
         }
     }
 }
