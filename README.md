@@ -34,7 +34,8 @@ Once you have done so, build the solution or project and run it.
 **A:** Contact me on Discord at Crane#3815.
 
 ### Screenshots
-![Screenshot](/iEra%20Upload/Resources/Capture.PNG)
+![Capture](/iEra%20Upload/Resources/Capture.PNG)
+![Capture-2](/iEra%20Upload/Resources/Capture-2.PNG)
 
 ### Acknowledgements
 Listed below are entites that have in some way shape or form assisted with the development of this software.
