@@ -43,5 +43,6 @@ Listed below are entites that have in some way shape or form assisted with the d
 - GraalOnline Era Staff & Community
 - Graal Style
 - Spolsh
+- Drxp
 - Conner
 - Mythric
