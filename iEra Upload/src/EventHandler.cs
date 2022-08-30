@@ -11,7 +11,7 @@ namespace iEra_Upload
             App = App ?? app;
         }
 
-        static public void Load(object? sender, EventArgs e)
+        static public void App_Load(object? sender, EventArgs e)
         {
             App!.MinimumSize = App.Size;
             App.MaximumSize = App.Size;
@@ -24,7 +24,7 @@ namespace iEra_Upload
             }
         }
 
-        static public async void FormClosing(object? sender, FormClosingEventArgs e)
+        static public async void App_FormClosing(object? sender, FormClosingEventArgs e)
         {
             JavascriptResponse response = await App!.WebBrowser.EvaluateScriptAsync("document.getElementById(\"email\").value;");
             App.GraalID.ID = (string)response.Result;
@@ -51,7 +51,7 @@ namespace iEra_Upload
             preview.Show();
         }
 
-        static public void Elapsed(object? sender, EventArgs e)
+        static public void JavascriptPreexecutionTimer_Elapsed(object? sender, EventArgs e)
         {
             if (App!.WebBrowser.IsBrowserInitialized)
             {

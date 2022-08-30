@@ -39,11 +39,11 @@ namespace iEra_Upload
         {
             EventHandler.Initialize(this);
 
-            this.Load += EventHandler.Load;
-            this.FormClosing += EventHandler.FormClosing;
+            this.Load += EventHandler.App_Load;
+            this.FormClosing += EventHandler.App_FormClosing;
             this.RefreshButton.Click += EventHandler.RefreshButton_Click;
             this.PreviewButton.Click += EventHandler.PreviewButton_Click;
-            this.JavascriptPreexecutionTimer.Elapsed += EventHandler.Elapsed;
+            this.JavascriptPreexecutionTimer.Elapsed += EventHandler.JavascriptPreexecutionTimer_Elapsed;
         }
     }
 }
