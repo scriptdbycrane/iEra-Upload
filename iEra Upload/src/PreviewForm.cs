@@ -20,7 +20,7 @@ namespace iEra_Upload
             this.MaximumSize = this.Size;
             this.MaximizeBox = false;
 
-            InitializeWebBrowser();
+            this.InitializeWebBrowser();
         }
 
         private async void InitializeWebBrowser()
