@@ -30,7 +30,7 @@ namespace iEra_Upload
 
             await this.WebBrowser.LoadUrlAsync(this.Url);
             await this.WebBrowser.EvaluateScriptAsync("window.scrollTo(0, 240);");
-            await this.WebBrowser.EvaluateScriptAsync("window.onscroll = function() { window.scrollTo(0, 240); };");
+            await this.WebBrowser.EvaluateScriptAsync("window.onscroll = () => { window.scrollTo(0, 240); };");
             await this.WebBrowser.EvaluateScriptAsync("document.body.style.overflow = 'hidden';");
         }
     }
