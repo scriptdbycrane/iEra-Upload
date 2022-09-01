@@ -13,18 +13,18 @@
 
         public Resource(ResourceType type, string path)
         {
-            Type = type;
-            Path = path;
+            this.Type = type;
+            this.Path = path;
         }
 
         public bool Exists()
         {
-            switch (Type)
+            switch (this.Type)
             {
                 case ResourceType.Directory:
-                    return Directory.Exists(Path);
+                    return Directory.Exists(this.Path);
                 case ResourceType.File:
-                    return File.Exists(Path);
+                    return File.Exists(this.Path);
                 default:
                     return false;
             }
